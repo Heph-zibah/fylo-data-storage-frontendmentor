@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700;800&display=swap');
 :root {
-    --gradient: linear-gradient(hsl(6, 100%, 80%), hsl(335, 100%, 65%));
+    --gradient: linear-gradient(to left, hsl(6, 100%, 80%), hsl(335, 100%, 65%));
     --paleBlue: hsl(243, 100%, 93%);
     --grayishBlue: hsl(229, 7%, 55%);
     --darkBlue: hsl(228, 56%, 26%);
@@ -71,22 +71,61 @@ body {
     position: relative;
 }
 
-.card-2 progress {
-    -webkit-appearance: none;
-    height: 15px;
+.bar {
     width: 100%;
-    margin-top: 8px;
+    height: 1.5rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    border: .3rem solid #141E4A;
+    border-radius: 1rem;
+    overflow: hidden;
 }
 
-.card-2 progress::-webkit-progress-bar {
-    background: var(--veryDarkBlue);
-    border-radius: 8px;
+.bar__base {
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: none;
+    background-color: #141E4A;
 }
 
-.card-2 progress::-webkit-progress-value {
-    border: 3px solid var(--veryDarkBlue);
-    background: var(--gradient);
-    border-radius: 8px;
+.bar__base::-moz-meter-bar {
+    background: none;
+}
+
+.bar__gauge {
+    width: 74.5%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1rem;
+    background-image: var(--gradient);
+    pointer-events: none;
+    transform: translateX(calc(-100% + 1.4rem));
+    animation: bar 1.4s ease-in-out 1s forwards;
+}
+
+.bar__gauge::before {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    display: block;
+    position: absolute;
+    top: calc(50% - .5rem);
+    right: .2rem;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+@keyframes bar {
+    from {
+        transform: translateX(calc(-100% + 1.4rem));
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
 .card-2-paragraph {
@@ -113,12 +152,32 @@ body {
     border-radius: 10px;
     margin-left: 40px;
     margin-top: 8px;
+    animation: popup .35s linear 2.7s;
 }
 
 .card-2-info span {
     color: var(--veryDarkBlue);
     font-weight: 900;
     font-size: 40px;
+}
+
+@keyframes popup {
+    0% {
+        transform: translateY(50%) scale(0.9);
+        opacity: .2;
+    }
+    40% {
+        transform: translateY(50%) scale(1);
+        opacity: .5;
+    }
+    60% {
+        transform: translateY(50%) scale(1.1);
+        opacity: .8;
+    }
+    100% {
+        transform: translateY(50%) scale(1);
+        opacity: 1;
+    }
 }
 
 .attribution {
@@ -149,7 +208,7 @@ body {
         grid-template-columns: repeat(6, 1fr);
         gap: 40px;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
     }
     .card-1 {
         grid-column: 2/3;
@@ -158,12 +217,22 @@ body {
         grid-column: 3/6;
     }
     .card-2-info {
-        background: #fff;
-        color: var(--grayishBlue);
-        padding: 10px;
+        margin: 0 0 0 auto;
+        top: -4rem;
+        right: 4rem;
+        bottom: auto;
+        transform-origin: right bottom;
+    }
+    .card-2-info::before {
+        content: '';
+        width: 0;
+        height: 0;
+        display: block;
         position: absolute;
-        border-radius: 10px;
-        margin-left: 0;
-        margin-top: 0;
+        bottom: -2.5rem;
+        right: 0;
+        border-width: 0 3.5rem 3.5rem 0;
+        border-style: solid;
+        border-color: transparent #fff transparent transparent;
     }
 }

@@ -30,7 +30,10 @@
         </div>
         <div class="card-2">
             <p class="card-2-paragraph">You've used <span>815 GB</span> of your storage</p>
-            <progress value="85" max="100"></progress>
+            <div class="bar">
+                <meter class="bar__base" min="0" max="1000" value="815" title="GB"></meter>
+                <div class="bar__gauge"></div>
+            </div>
             <div class="card-2-numbers">
                 <p>0 GB</p>
                 <p>1000 GB</p>
